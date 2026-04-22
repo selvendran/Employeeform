@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zensible – Employee Information Form</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #f3f2f1;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+      color: #6264A7;
+    }
+    h2 {
+      font-size: 18px;
+      margin-top: 30px;
+      background: #f3f2f1;
+      padding: 10px;
+      border-left: 5px solid #6264A7;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 18px;
+      margin-bottom: 5px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .radio-group {
+      margin-top: 5px;
+    }
+    .radio-group label {
+      font-weight: normal;
+      display: inline-block;
+      margin-right: 20px;
+    }
+    .radio-group input {
+      width: auto;
+      margin-right: 5px;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      background: #6264A7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #4f52a3;
+    }
+    .btn-small {
+      margin-top: 5px;
+      padding: 5px 12px;
+      font-size: 13px;
+      background: #6c757d;
+    }
+    .btn-small.remove {
+      background: #dc3545;
+    }
+    .btn-small.remove:hover {
+      background: #c82333;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #666;
+    }
+    #form-status {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .nominee-group, .dependent-group {
+      border: 1px solid #e0e0e0;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 6px;
+      background: #fafafa;
+    }
+    .nominee-header, .dependent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .share-info {
+      font-size: 14px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .file-note {
+      font-size: 12px;
+      color: #666;
+      margin-top: 3px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Zensible Technologies Pvt Ltd</h1>
+  <p>Consolidated Employee Information, PF & Nomination Form</p>
+
+  <form id="employee-form" enctype="multipart/form-data">
+    <!-- ========== SECTION A – EMPLOYEE PERSONAL DETAILS ========== -->
+    <h2>Section A – Employee Personal Details</h2>
+
+    <label for="firstName">First Name *</label>
+    <input type="text" id="firstName" name="firstName" required>
+
+    <label for="middleName">Middle Name</label>
+    <input type="text" id="middleName" name="middleName">
+
+    <label for="lastName">Last Name *</label>
+    <input type="text" id="lastName" name="lastName" required>
+
+    <label for="dateOfBirth">Date of Birth *</label>
+    <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+
+    <label>Gender *</label>
+    <div class="radio-group">
+      <label><input type="radio" name="gender" value="Male" required> Male</label>
+      <label><input type="radio" name="gender" value="Female"> Female</label>
+      <label><input type="radio" name="gender" value="Other"> Other</label>
+    </div>
+
+    <label>Marital Status *</label>
+    <div class="radio-group">
+      <label><input type="radio" name="marital" value="Single" required> Single</label>
+      <label><input type="radio" name="marital" value="Married"> Married</label>
+    </div>
+
+    <label for="fatherHusbandName">Father’s / Husband’s Name *</label>
+    <input type="text" id="fatherHusbandName" name="fatherHusbandName" required>
+
+    <!-- PAN: File upload -->
+    <label for="panFile">PAN Card (Upload PDF/JPEG/PNG) *</label>
+    <input type="file" id="panFile" name="panFile" accept=".pdf,.jpg,.jpeg,.png" required>
+    <div class="file-note">Accepted formats: PDF, JPG, JPEG, PNG</div>
+
+    <!-- Aadhaar: File upload -->
+    <label for="aadhaarFile">Aadhaar Card (Upload PDF/JPEG/PNG) *</label>
+    <input type="file" id="aadhaarFile" name="aadhaarFile" accept=".pdf,.jpg,.jpeg,.png" required>
+    <div class="file-note">Accepted formats: PDF, JPG, JPEG, PNG</div>
+
+    <label for="dateOfJoining">Date of Joining *</label>
+    <input type="date" id="dateOfJoining" name="dateOfJoining" required>
+
+    <label for="uan">UAN Number</label>
+    <input type="text" id="uan" name="uan">
+
+    <!-- ========== SECTION B – CONTACT DETAILS (with Emergency Contact) ========== -->
+    <h2>Section B – Contact Details</h2>
+
+    <label for="presentAddress">Present Address *</label>
+    <textarea id="presentAddress" name="presentAddress" rows="3" required></textarea>
+
+    <label for="permanentAddress">Permanent Address *</label>
+    <textarea id="permanentAddress" name="permanentAddress" rows="3" required></textarea>
+
+    <label for="personalEmail">Personal Email ID *</label>
+    <input type="email" id="personalEmail" name="personalEmail" required>
+
+    <label for="mobile">Mobile Number *</label>
+    <input type="tel" id="mobile" name="mobile" required>
+
+    <!-- Emergency Contact subsection -->
+    <h3 style="margin-top:25px; color:#6264A7;">Emergency Contact</h3>
+    <label for="emergencyName">Emergency Contact Name *</label>
+    <input type="text" id="emergencyName" name="emergencyName" required>
+
+    <label for="emergencyRelationship">Relationship *</label>
+    <input type="text" id="emergencyRelationship" name="emergencyRelationship" required>
+
+    <label for="emergencyPhone">Emergency Contact Phone *</label>
+    <input type="tel" id="emergencyPhone" name="emergencyPhone" required>
+
+    <!-- ========== SECTION D – BANK ACCOUNT DETAILS (with Cancelled Cheque upload) ========== -->
+    <h2>Section D – Bank Account Details</h2>
+
+    <label for="bankAccountNumber">Bank Account Number *</label>
+    <input type="text" id="bankAccountNumber" name="bankAccountNumber" required>
+
+    <label for="bankAccountName">Name as per Bank Account *</label>
+    <input type="text" id="bankAccountName" name="bankAccountName" required>
+
+    <label for="bankName">Bank Name *</label>
+    <input type="text" id="bankName" name="bankName" required>
+
+    <label for="branchName">Branch Name *</label>
+    <input type="text" id="branchName" name="branchName" required>
+
+    <label for="ifsc">IFSC Code *</label>
+    <input type="text" id="ifsc" name="ifsc" required>
+
+    <!-- Cancelled Cheque: File upload -->
+    <label for="cancelledCheque">Cancelled Cheque (Upload PDF/JPEG/PNG) *</label>
+    <input type="file" id="cancelledCheque" name="cancelledCheque" accept=".pdf,.jpg,.jpeg,.png" required>
+    <div class="file-note">Accepted formats: PDF, JPG, JPEG, PNG</div>
+
+    <!-- ========== SECTION E – PF / PENSION NOMINATION (DYNAMIC) ========== -->
+    <h2>Section E – PF / Pension Nomination</h2>
+    <div id="nominees-container"></div>
+    <button type="button" id="add-nominee" class="btn-small">➕ Add Another Nominee</button>
+    <div class="share-info" id="share-total-display">Total Share: 0%</div>
+
+    <!-- ========== SECTION F – COMPANY DECLARATION / DEATH NOMINATION ========== -->
+    <h2>Section F – Company Declaration / Death Nomination</h2>
+    <label for="authorizedNomineeName">Authorized Nominee Name *</label>
+    <input type="text" id="authorizedNomineeName" name="authorizedNomineeName" required>
+
+    <label for="authorizedNomineeRelationship">Relationship *</label>
+    <input type="text" id="authorizedNomineeRelationship" name="authorizedNomineeRelationship" required>
+
+    <label for="authorizedNomineeAddress">Address *</label>
+    <textarea id="authorizedNomineeAddress" name="authorizedNomineeAddress" rows="3" required></textarea>
+
+    <!-- ========== SECTION G – INSURANCE DEPENDENTS (DYNAMIC) ========== -->
+    <h2>Section G – Insurance Dependents</h2>
+    <div id="dependents-container"></div>
+    <button type="button" id="add-dependent" class="btn-small">➕ Add Another Dependent</button>
+
+    <!-- ========== SECTION H – EMPLOYEE DECLARATION ========== -->
+    <h2>Section H – Employee Declaration</h2>
+    <label>
+      <input type="checkbox" id="declarationCheck" name="declarationCheck" value="true" required>
+      I hereby declare that the information provided above is true and correct.
+    </label>
+    <label for="signature">Employee Signature (Type Full Name) *</label>
+    <input type="text" id="signature" name="signature" required>
+    <label for="signatureDate">Date *</label>
+    <input type="date" id="signatureDate" name="signatureDate" required>
+
+    <button type="submit" id="submit-btn">Submit</button>
+    <div id="form-status"></div>
+  </form>
+
+  <footer>
+    <p>Documents to be enclosed: PAN, Aadhaar, Cancelled Cheque (uploaded above).</p>
+  </footer>
+</div>
+
+<script>
+  (function() {
+    const form = document.getElementById('employee-form');
+    const statusDiv = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn');
+    const FORMSPREE_URL = 'https://formspree.io/f/mkokqqyq';
+
+    // ---------- NOMINEES (Section E) ----------
+    const nomineesContainer = document.getElementById('nominees-container');
+    const addNomineeBtn = document.getElementById('add-nominee');
+    const shareTotalDisplay = document.getElementById('share-total-display');
+    let nomineeCount = 0;
+
+    function createNomineeGroup() {
+      nomineeCount++;
+      const group = document.createElement('div');
+      group.className = 'nominee-group';
+      group.dataset.nomineeId = nomineeCount;
+      group.innerHTML = `
+        <div class="nominee-header">
+          <strong>Nominee ${nomineeCount}</strong>
+          <button type="button" class="btn-small remove remove-nominee">✖ Remove</button>
+        </div>
+        <label>Nominee Name</label>
+        <input type="text" name="nomineeName_${nomineeCount}" required>
+        <label>Relationship</label>
+        <input type="text" name="nomineeRelationship_${nomineeCount}" required>
+        <label>Nominee Address</label>
+        <textarea name="nomineeAddress_${nomineeCount}" rows="2" required></textarea>
+        <label>Share Percentage (%)</label>
+        <input type="number" name="nomineeShare_${nomineeCount}" min="0" max="100" value="100" class="nominee-share" required>
+      `;
+      nomineesContainer.appendChild(group);
+      attachNomineeEvents(group);
+      updateShareTotal();
+    }
+
+    function attachNomineeEvents(group) {
+      const removeBtn = group.querySelector('.remove-nominee');
+      removeBtn.addEventListener('click', function() {
+        group.remove();
+        updateShareTotal();
+      });
+      const shareInput = group.querySelector('.nominee-share');
+      shareInput.addEventListener('input', updateShareTotal);
+    }
+
+    function updateShareTotal() {
+      const shareInputs = document.querySelectorAll('.nominee-share');
+      let total = 0;
+      shareInputs.forEach(input => { total += parseFloat(input.value) || 0; });
+      shareTotalDisplay.textContent = `Total Share: ${total}%`;
+      shareTotalDisplay.style.color = total === 100 ? '#155724' : '#dc3545';
+    }
+
+    addNomineeBtn.addEventListener('click', createNomineeGroup);
+    createNomineeGroup(); // start with one
+
+    // ---------- INSURANCE DEPENDENTS (Section G) ----------
+    const dependentsContainer = document.getElementById('dependents-container');
+    const addDependentBtn = document.getElementById('add-dependent');
+    let dependentCount = 0;
+
+    function createDependentGroup() {
+      dependentCount++;
+      const group = document.createElement('div');
+      group.className = 'dependent-group';
+      group.dataset.dependentId = dependentCount;
+      group.innerHTML = `
+        <div class="dependent-header">
+          <strong>Dependent ${dependentCount}</strong>
+          <button type="button" class="btn-small remove remove-dependent">✖ Remove</button>
+        </div>
+        <label>Dependent Name</label>
+        <input type="text" name="dependentName_${dependentCount}" required>
+        <label>Relationship</label>
+        <select name="dependentRelationship_${dependentCount}" required>
+          <option value="">Select</option>
+          <option value="Spouse">Spouse</option>
+          <option value="Child">Child</option>
+          <option value="Parent">Parent</option>
+        </select>
+        <label>Gender</label>
+        <select name="dependentGender_${dependentCount}" required>
+          <option value="">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <label>Date of Birth</label>
+        <input type="date" name="dependentDOB_${dependentCount}" required>
+      `;
+      dependentsContainer.appendChild(group);
+      group.querySelector('.remove-dependent').addEventListener('click', function() {
+        group.remove();
+      });
+    }
+
+    addDependentBtn.addEventListener('click', createDependentGroup);
+    // Do not auto-create dependent; user clicks to add.
+
+    // ---------- FORM SUBMISSION (with file support) ----------
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // Validate total share = 100%
+      const shareInputs = document.querySelectorAll('.nominee-share');
+      let total = 0;
+      shareInputs.forEach(input => { total += parseFloat(input.value) || 0; });
+      if (total !== 100) {
+        alert('Total nominee share percentage must equal 100%. Please adjust.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      statusDiv.style.display = 'none';
+      statusDiv.className = '';
+
+      // Use FormData to handle file uploads
+      const formData = new FormData(form);
+
+      // For the dynamic sections, we already have named fields in the FormData.
+      // No need to manually append, as FormData collects all inputs with name attributes.
+
+      try {
+        const response = await fetch(FORMSPREE_URL, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+          // Note: Do NOT set Content-Type header when sending FormData; browser will set it with boundary.
+        });
+
+        if (response.ok) {
+          statusDiv.textContent = '✅ Form submitted successfully! Thank you.';
+          statusDiv.classList.add('success');
+          statusDiv.style.display = 'block';
+          form.reset();
+          // Reset dynamic sections
+          nomineesContainer.innerHTML = '';
+          dependentsContainer.innerHTML = '';
+          nomineeCount = 0;
+          dependentCount = 0;
+          createNomineeGroup();
+        } else {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Submission failed');
+        }
+      } catch (error) {
+        statusDiv.textContent = `❌ Error: ${error.message}. Please try again or contact support.`;
+        statusDiv.classList.add('error');
+        statusDiv.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      }
+    });
+  })();
+</script>
+</body>
+</html>
